@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 
 #import "ViewController.h"
+#import "IBXLockScreenAgent.h"
+#import "IBXLockScreenView.h"
 
 @implementation AppDelegate
 
@@ -22,15 +24,24 @@
     [super dealloc];
 }
 
+- (void)checkPassword
+{
+    if ([IBXLockScreenAgent isSaved]) {
+    }
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     ViewController * controller = [[[ViewController alloc] initWithNibName:@"ViewController" bundle:nil] autorelease];
     UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
-    self.ViewController = controller;
+    self.viewController = controller;
+    [self checkPassword];
+    
     self.window.rootViewController = navigationController;
     [navigationController release];
+    
     
     [self.window makeKeyAndVisible];
     return YES;
@@ -43,6 +54,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    [self checkPassword];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

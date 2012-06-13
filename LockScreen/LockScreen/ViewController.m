@@ -7,7 +7,8 @@
 //
 
 #import "ViewController.h"
-#import "IBXLockScreenViewController.h"
+#import "IBXLockScreenView.h"
+#import "IBXLockScreenAgent.h"
 
 @interface ViewController ()
 {
@@ -30,9 +31,11 @@
     if ([sender isKindOfClass:[UISwitch class]]) {
         UISwitch * lSwitcher = sender;
         if ([lSwitcher isOn]) {
-            IBXLockScreenViewController * lockViewController = [[IBXLockScreenViewController alloc] init];
-            [self presentModalViewController:lockViewController animated:YES];
-            [lockViewController release];
+            IBXLockScreenView * screenView = [IBXLockScreenView getView];
+            [self.view addSubview:screenView];
+        }
+        else {
+            [IBXLockScreenAgent clearPassword];
         }
     }
 }
@@ -44,6 +47,7 @@
     if (lockSwitcher == nil) {
         lockSwitcher = [[UISwitch alloc] init];
         [lockSwitcher sizeToFit];
+        [lockSwitcher setOn:[IBXLockScreenAgent isSaved]];
         [lockSwitcher addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
         
         [self.view addSubview:lockSwitcher];
@@ -53,6 +57,11 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

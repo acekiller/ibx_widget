@@ -15,7 +15,8 @@
 		0761A3961586EB3E00699D53 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0761A3951586EB3E00699D53 /* AppDelegate.m */; };
 		0761A3991586EB3E00699D53 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0761A3981586EB3E00699D53 /* ViewController.m */; };
 		0761A39C1586EB3E00699D53 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0761A39A1586EB3E00699D53 /* ViewController.xib */; };
-		0761A3B21586FD8900699D53 /* IBXLockScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0761A3B11586FD8900699D53 /* IBXLockScreenViewController.m */; };
+		0761A3B21586FD8900699D53 /* IBXLockScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0761A3B11586FD8900699D53 /* IBXLockScreenView.m */; };
+		07BBDB8F158887D400311B76 /* IBXLockScreenAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BBDB8E158887D400311B76 /* IBXLockScreenAgent.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,8 +33,10 @@
 		0761A3971586EB3E00699D53 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		0761A3981586EB3E00699D53 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		0761A39B1586EB3E00699D53 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
-		0761A3B01586FD8900699D53 /* IBXLockScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IBXLockScreenViewController.h; path = LockScreenLib/IBXLockScreenViewController.h; sourceTree = "<group>"; };
-		0761A3B11586FD8900699D53 /* IBXLockScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IBXLockScreenViewController.m; path = LockScreenLib/IBXLockScreenViewController.m; sourceTree = "<group>"; };
+		0761A3B01586FD8900699D53 /* IBXLockScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; name = IBXLockScreenView.h; path = LockScreenLib/IBXLockScreenView.h; sourceTree = "<group>"; };
+		0761A3B11586FD8900699D53 /* IBXLockScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IBXLockScreenView.m; path = LockScreenLib/IBXLockScreenView.m; sourceTree = "<group>"; };
+		07BBDB8D158887D400311B76 /* IBXLockScreenAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IBXLockScreenAgent.h; path = LockScreenLib/IBXLockScreenAgent.h; sourceTree = "<group>"; };
+		07BBDB8E158887D400311B76 /* IBXLockScreenAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IBXLockScreenAgent.m; path = LockScreenLib/IBXLockScreenAgent.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,8 +108,10 @@
 		0761A3AE1586FD4900699D53 /* LockScreen */ = {
 			isa = PBXGroup;
 			children = (
-				0761A3B01586FD8900699D53 /* IBXLockScreenViewController.h */,
-				0761A3B11586FD8900699D53 /* IBXLockScreenViewController.m */,
+				0761A3B01586FD8900699D53 /* IBXLockScreenView.h */,
+				0761A3B11586FD8900699D53 /* IBXLockScreenView.m */,
+				07BBDB8D158887D400311B76 /* IBXLockScreenAgent.h */,
+				07BBDB8E158887D400311B76 /* IBXLockScreenAgent.m */,
 			);
 			name = LockScreen;
 			sourceTree = "<group>";
@@ -176,7 +181,8 @@
 				0761A3921586EB3E00699D53 /* main.m in Sources */,
 				0761A3961586EB3E00699D53 /* AppDelegate.m in Sources */,
 				0761A3991586EB3E00699D53 /* ViewController.m in Sources */,
-				0761A3B21586FD8900699D53 /* IBXLockScreenViewController.m in Sources */,
+				0761A3B21586FD8900699D53 /* IBXLockScreenView.m in Sources */,
+				07BBDB8F158887D400311B76 /* IBXLockScreenAgent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

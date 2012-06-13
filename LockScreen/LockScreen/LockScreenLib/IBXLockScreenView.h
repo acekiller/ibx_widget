@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface IBXLockScreenViewController : UIViewController
+@interface IBXLockScreenView : UIView <UITextViewDelegate>
+
++ (IBXLockScreenView *)getView;
 
 @end
