@@ -31,8 +31,9 @@
     if ([sender isKindOfClass:[UISwitch class]]) {
         UISwitch * lSwitcher = sender;
         if ([lSwitcher isOn]) {
-            IBXLockScreenView * screenView = [IBXLockScreenView getView];
-            [self.view addSubview:screenView];
+            UIWindow * window = [UIApplication sharedApplication].keyWindow;
+            IBXLockScreenView * screenView = [IBXLockScreenView getView:window.frame];
+            [window addSubview:screenView];
         }
         else {
             [IBXLockScreenAgent clearPassword];

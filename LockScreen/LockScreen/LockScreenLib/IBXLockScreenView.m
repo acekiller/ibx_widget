@@ -43,9 +43,18 @@
 
 #pragma mark - Singleton
 
-+ (IBXLockScreenView *)getView
++ (IBXLockScreenView *)getView:(CGRect)frame
 {
-    return nil;
+    static IBXLockScreenView * view;
+    if (view == nil) {
+        view = [[IBXLockScreenView alloc] init];
+        view.frame = frame;
+        [view initUI];
+    }
+    view.frame = frame;
+    [view refreshUI];
+    
+    return view;
 }
 
 #pragma mark - UITextViewDelegate
@@ -81,28 +90,26 @@
             if ([tempString length] > 0) {
                 if ([tempString isEqualToString:str]) {
                     [IBXLockScreenAgent savePassword:str];
-                    [self removeFromSuperview];
+                    [self hideSelf];
                 }
                 else {
                     [tempString release];
                     tipLabel.text = @"Input password";
-                    [self clearNumber];
                 }
             }
             else {
                 [tempString release];
                 tempString = [stringToUse copy];
                 tipLabel.text = @"Reinput password";
-                [self clearNumber];
             }
         }
         else if ([IBXLockScreenAgent checkPassword:str]) {
-            [self removeFromSuperview];
+            [self hideSelf];
         }
         else {
             tipLabel.text = @"Error, reinput password";
-            [self clearNumber];
         }
+        [self clearNumber];
     }
     else label4.text = @"";
 }
@@ -114,9 +121,8 @@
 
 #pragma mark - UIView
 
-- (void)viewDidLoad
+- (void)initUI
 {
-    
     self.backgroundColor = [UIColor whiteColor];
     
     if (hiddenTextView == nil) {
@@ -172,20 +178,18 @@
         [cancelButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
         CGFloat width = 50;
         cancelButton.frame = CGRectMake(self.frame.size.width - width, 0, width, width);
-        [cancelButton addTarget:self action:@selector(cancelSetting) forControlEvents:UIControlEventTouchUpInside];
+        [cancelButton addTarget:self action:@selector(hideSelf) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:cancelButton];
     }
     
+}
+
+- (void)refreshUI
+{
     cancelButton.hidden = ([IBXLockScreenAgent isSaved]);
     tipLabel.text = @"Input password";
     [hiddenTextView becomeFirstResponder];
-
-
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    
 }
 
 @end

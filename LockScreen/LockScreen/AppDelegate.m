@@ -27,6 +27,8 @@
 - (void)checkPassword
 {
     if ([IBXLockScreenAgent isSaved]) {
+        IBXLockScreenView * screenView = [IBXLockScreenView getView:self.window.frame];
+        [self.window addSubview:screenView];
     }
 }
 

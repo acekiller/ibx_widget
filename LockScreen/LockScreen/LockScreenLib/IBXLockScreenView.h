@@ -8,8 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    TYPE_CANCEL_SET,
+    TYPE_NORMAL_PASS,
+} HideResultType;
+
+@protocol IBXLockScreenDelegate <NSObject>
+
+- (void)hideWithResult:(HideResultType)type;
+
+@end
+
 @interface IBXLockScreenView : UIView <UITextViewDelegate>
 
-+ (IBXLockScreenView *)getView;
++ (IBXLockScreenView *)getView:(CGRect)frame;
 
 @end
