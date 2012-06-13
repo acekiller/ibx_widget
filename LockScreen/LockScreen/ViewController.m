@@ -7,23 +7,52 @@
 //
 
 #import "ViewController.h"
+#import "IBXLockScreenViewController.h"
 
 @interface ViewController ()
+{
+    UISwitch * lockSwitcher;
+}
 
 @end
 
 @implementation ViewController
 
+- (void)dealloc
+{
+    [lockSwitcher release];
+    
+    [super dealloc];
+}
+
+- (void)switchChanged:(id)sender
+{
+    if ([sender isKindOfClass:[UISwitch class]]) {
+        UISwitch * lSwitcher = sender;
+        if ([lSwitcher isOn]) {
+            IBXLockScreenViewController * lockViewController = [[IBXLockScreenViewController alloc] init];
+            [self presentModalViewController:lockViewController animated:YES];
+            [lockViewController release];
+        }
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+
+    if (lockSwitcher == nil) {
+        lockSwitcher = [[UISwitch alloc] init];
+        [lockSwitcher sizeToFit];
+        [lockSwitcher addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
+        
+        [self.view addSubview:lockSwitcher];
+    }
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
