@@ -21,6 +21,8 @@ typedef enum {
 
 @interface IBXLockScreenView : UIView <UITextViewDelegate>
 
+@property (nonatomic, assign) id<IBXLockScreenDelegate> delegate;
+
 + (IBXLockScreenView *)getView:(CGRect)frame;
 
 @end

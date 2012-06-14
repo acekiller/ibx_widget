@@ -22,11 +22,15 @@
     UILabel * tipLabel;
     UIButton * cancelButton;
     NSString * tempString;
+    
+    id<IBXLockScreenDelegate> _delegate;
 }
 
 @end
 
 @implementation IBXLockScreenView
+
+@synthesize delegate = _delegate;
 
 - (void)dealloc
 {
@@ -37,6 +41,7 @@
     [label4 release];
     [tipLabel release];
     [cancelButton release];
+    [tempString release];
     
     [super dealloc];
 }
@@ -61,7 +66,6 @@
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-    NSLog(@"textView text: %@", textView.text);
     if ([textView.text length] > 4) textView.text = [textView.text substringWithRange:NSMakeRange(0, 4)];
     [self updateLabels:textView.text];
 }
@@ -82,41 +86,61 @@
     else label2.text = @"";
     if ([str length] > 2) label3.text = [str substringWithRange:NSMakeRange(2, 1)];
     else label3.text = @"";
+    
     if ([str length] > 3) {
         label4.text = [str substringWithRange:NSMakeRange(3, 1)];
-        NSString * stringToUse = [str substringWithRange:NSMakeRange(0, 4)];
         
-        if (![IBXLockScreenAgent isSaved]) {
-            if ([tempString length] > 0) {
-                if ([tempString isEqualToString:str]) {
-                    [IBXLockScreenAgent savePassword:str];
-                    [self hideSelf];
-                }
-                else {
-                    [tempString release];
-                    tipLabel.text = @"Input password";
-                }
+        [self performSelector:@selector(checkNumber:) withObject:str afterDelay:0.5];        
+    }
+    else label4.text = @"";
+}
+
+- (void)checkNumber:(NSString *)str
+{
+    NSString * stringToUse = [str substringWithRange:NSMakeRange(0, 4)];
+    
+    if (![IBXLockScreenAgent isSaved]) {
+        if ([tempString length] > 0) {
+            if ([tempString isEqualToString:str]) {
+                [IBXLockScreenAgent savePassword:str];
+                [tempString release];
+                tempString = nil;
+                [self hideSelf];
             }
             else {
                 [tempString release];
-                tempString = [stringToUse copy];
-                tipLabel.text = @"Reinput password";
+                tempString = nil;
+                tipLabel.text = @"Input password";
             }
         }
-        else if ([IBXLockScreenAgent checkPassword:str]) {
-            [self hideSelf];
-        }
         else {
-            tipLabel.text = @"Error, reinput password";
+            [tempString release];
+            tempString = [stringToUse copy];
+            tipLabel.text = @"Reinput password";
         }
-        [self clearNumber];
     }
-    else label4.text = @"";
+    else if ([IBXLockScreenAgent checkPassword:str]) {
+        [self hideSelf];
+    }
+    else {
+        tipLabel.text = @"Error, reinput password";
+    }
+    [self clearNumber];
 }
 
 - (void)hideSelf
 {
     [self removeFromSuperview];
+    [self clearNumber];
+}
+
+- (void)cancelSetting
+{
+    if ([_delegate respondsToSelector:@selector(hideWithResult:)]) {
+        [_delegate hideWithResult:TYPE_CANCEL_SET];
+    }
+    
+    [self hideSelf];
 }
 
 #pragma mark - UIView
@@ -178,7 +202,7 @@
         [cancelButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
         CGFloat width = 50;
         cancelButton.frame = CGRectMake(self.frame.size.width - width, 0, width, width);
-        [cancelButton addTarget:self action:@selector(hideSelf) forControlEvents:UIControlEventTouchUpInside];
+        [cancelButton addTarget:self action:@selector(cancelSetting) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:cancelButton];
     }
     

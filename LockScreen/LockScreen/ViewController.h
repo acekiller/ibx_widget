@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+#import "IBXLockScreenView.h"
+
+@interface ViewController : UIViewController <IBXLockScreenDelegate>
 
 @end

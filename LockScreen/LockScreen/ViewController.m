@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "IBXLockScreenView.h"
 #import "IBXLockScreenAgent.h"
 
 @interface ViewController ()
@@ -33,6 +32,7 @@
         if ([lSwitcher isOn]) {
             UIWindow * window = [UIApplication sharedApplication].keyWindow;
             IBXLockScreenView * screenView = [IBXLockScreenView getView:window.frame];
+            screenView.delegate = self;
             [window addSubview:screenView];
         }
         else {
@@ -40,6 +40,17 @@
         }
     }
 }
+
+#pragma mark - IBXLockScreenDelegate
+
+- (void)hideWithResult:(HideResultType)type
+{
+    if (type == TYPE_CANCEL_SET) {
+        [lockSwitcher setOn:NO animated:YES];
+    }
+}
+
+#pragma mark - UIView
 
 - (void)viewDidLoad
 {

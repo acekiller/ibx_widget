@@ -39,11 +39,12 @@
     ViewController * controller = [[[ViewController alloc] initWithNibName:@"ViewController" bundle:nil] autorelease];
     UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
     self.viewController = controller;
-    [self checkPassword];
     
-    self.window.rootViewController = navigationController;
+//    self.window.rootViewController = navigationController;
+    [self.window addSubview:navigationController.view];
     [navigationController release];
     
+    [self checkPassword];
     
     [self.window makeKeyAndVisible];
     return YES;
