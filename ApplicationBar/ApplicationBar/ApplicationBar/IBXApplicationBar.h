@@ -31,5 +31,6 @@
 
 - (void)addDisplayButton:(UIImage *)icon withTitle:(NSString *)title withTag:(NSInteger)tag;
 - (void)addOptionButton:(NSString *)title withTag:(NSInteger)tag;
+- (void)addOptionButton:(NSString *)title withIcon:(UIImage *)image withTag:(NSInteger)tag;
 
 @end

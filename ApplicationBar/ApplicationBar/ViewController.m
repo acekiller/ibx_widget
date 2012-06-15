@@ -12,6 +12,7 @@
 
 #define TAG_FOR_CREATE_BUTTON   100080
 #define TAG_FOR_FEEDBACK_BUTTON 100081
+#define TAG_FOR_PLUS_BUTTON     100082
 
 @interface ViewController ()
 {
@@ -80,6 +81,9 @@
                                   withTag:TAG_FOR_CREATE_BUTTON];
         [_applicationBar addOptionButton:@"Feedback"
                                  withTag:TAG_FOR_FEEDBACK_BUTTON];
+        [_applicationBar addOptionButton:@"Button with icon" 
+                                withIcon:[UIImage imageNamed:@"icon-plus.png"] 
+                                 withTag:TAG_FOR_PLUS_BUTTON];
         
         _applicationBar.barDelegate = self;
     

@@ -177,8 +177,15 @@
     [_contentView addSubview:button];
 }
 
+#pragma mark - option button
+
 - (void)addOptionButton:(NSString *)title 
                 withTag:(NSInteger)tag
+{
+    [self addOptionButton:title withIcon:nil withTag:tag];
+}
+
+- (void)addOptionButton:(NSString *)title withIcon:(UIImage *)image withTag:(NSInteger)tag
 {
     CGFloat height = [self heightForOptionButtons] + IBX_APPLICATION_BAR_DEFAULT_HEIGHT;
     
@@ -188,18 +195,23 @@
     [button setTitle:title forState:UIControlStateNormal];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    if (image != nil) { 
+        [button setImage:image forState:UIControlStateNormal];
+        [button setTitleEdgeInsets:UIEdgeInsetsMake(0, DEFAULT_PADDING, 0, 0)];
+    }
+    
     [button sizeToFit];
     button.frame = CGRectMake(DEFAULT_PADDING, height,
                               self.frame.size.width - 5 * DEFAULT_PADDING, 
                               IBX_APPLICATION_BAR_BUTTON_HEIGHT);
-
     [button addTarget:self 
                action:@selector(optionButtonClicked:) 
      forControlEvents:UIControlEventTouchUpInside];
+    
     [_optionButtons addObject:button];
     [_contentView addSubview:button];
     
-    _optionButton.hidden = ([_optionButtons count] == 0);
+    _optionButton.hidden = ([_optionButtons count] == 0);    
 }
 
 #pragma - UIView
