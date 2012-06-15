@@ -10,8 +10,8 @@
 #import "IBXLockScreenAgent.h"
 
 #define NUMBER_LABEL_WIDTH       50
-#define NUMBER_LABEL_PADDING_TOP 90
-#define TIP_LABEL_PADDING_TOP    30
+#define NUMBER_LABEL_PADDING_TOP 100
+#define TIP_LABEL_PADDING_TOP    40
 #define TIP_LABEL_PADDIN         30
 #define TIP_LABEL_HEIGHT         30
 

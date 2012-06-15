@@ -96,7 +96,7 @@
                                           _navigationBar.frame.size.width, 
                                           _navigationBar.frame.size.height);
         _navigationBar.titleLabel.text = @"Sample";
-        [_navigationBar setButton:@"Right Button Here"
+        [_navigationBar setButtonIcon:[UIImage imageNamed:@"icon-plus.png"]
                        buttonType:NAVIGATION_BAR_BUTTON_RIGHT];
         [_navigationBar setButton:@"Left Button"
                        buttonType:NAVIGATION_BAR_BUTTON_LEFT];

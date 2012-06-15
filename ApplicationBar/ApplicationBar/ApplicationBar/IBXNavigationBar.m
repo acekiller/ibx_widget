@@ -85,8 +85,9 @@
     return button;
 }
 
-- (void)setButton:(NSString *)title 
-       buttonType:(NavigationBarButtonType)type
+#pragma mark - set button
+
+- (UIButton *)buttonByType:(NavigationBarButtonType)type
 {
     if (type == NAVIGATION_BAR_BUTTON_LEFT) {
         if (_leftButton == nil) {
@@ -94,13 +95,7 @@
             [self addSubview:_leftButton];
         }
         
-        [_leftButton setTitle:title forState:UIControlStateNormal];
-        [_leftButton sizeToFit];
-        
-        _leftButton.frame = CGRectMake(0,
-                                       0,
-                                       _leftButton.frame.size.width + 3 * DEFAULT_PADDING,
-                                       self.frame.size.height);
+        return _leftButton;
     }
     else if (type == NAVIGATION_BAR_BUTTON_RIGHT) {
         if (_rightButton == nil) {
@@ -108,15 +103,44 @@
             [self addSubview:_rightButton];
         }
         
-        [_rightButton setTitle:title forState:UIControlStateNormal];
+        return _rightButton;
+    }
+    
+    return nil;
+}
+
+- (void)updateButtonFrame:(UIButton *)button
+{
+    if (_leftButton == button) {
+        [_leftButton sizeToFit];
+        _leftButton.frame = CGRectMake(0,
+                                       0,
+                                       _leftButton.frame.size.width + 3 * DEFAULT_PADDING,
+                                       self.frame.size.height);        
+    }
+    else if (_rightButton == button) {
         [_rightButton sizeToFit];
-        
         CGFloat width = _rightButton.frame.size.width + 3 * DEFAULT_PADDING;
         _rightButton.frame = CGRectMake(self.frame.size.width - width, 
                                         0, 
                                         width,
-                                        self.frame.size.height);
+                                        self.frame.size.height);        
     }
+}
+
+- (void)setButton:(NSString *)title 
+       buttonType:(NavigationBarButtonType)type
+{
+    UIButton * button = [self buttonByType:type];
+    [button setTitle:title forState:UIControlStateNormal];
+    [self updateButtonFrame:button];
+}
+
+- (void)setButtonIcon:(UIImage *)image buttonType:(NavigationBarButtonType)type
+{
+    UIButton * button = [self buttonByType:type];
+    [button setImage:image forState:UIControlStateNormal];
+    [self updateButtonFrame:button];
 }
 
 - (void)navigationBarButtonClicked:(id)sender

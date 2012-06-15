@@ -20,7 +20,6 @@
 		0706A39E15307D4400C62FB6 /* icon-plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0706A39C15307D4400C62FB6 /* icon-plus@2x.png */; };
 		0750A226153CE9C400AD1CCF /* IBXToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 0750A225153CE9C400AD1CCF /* IBXToast.m */; };
 		078EA491155141720044156F /* IBXStatusBarOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 078EA490155141720044156F /* IBXStatusBarOverlay.m */; };
-		078EA494155141F30044156F /* MTStatusBarOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 078EA493155141F30044156F /* MTStatusBarOverlay.m */; };
 		07905D1A15371B8F009BD70F /* IBXNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 07905D1915371B8F009BD70F /* IBXNavigationBar.m */; };
 		07A167E61537D3A1002E53F6 /* IBXBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A167E51537D3A1002E53F6 /* IBXBarButton.m */; };
 /* End PBXBuildFile section */
@@ -47,8 +46,6 @@
 		0750A225153CE9C400AD1CCF /* IBXToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IBXToast.m; path = IBXDialog/IBXToast.m; sourceTree = "<group>"; };
 		078EA48F155141720044156F /* IBXStatusBarOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IBXStatusBarOverlay.h; path = IBXStatusBarOverLay/IBXStatusBarOverlay.h; sourceTree = "<group>"; };
 		078EA490155141720044156F /* IBXStatusBarOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IBXStatusBarOverlay.m; path = IBXStatusBarOverLay/IBXStatusBarOverlay.m; sourceTree = "<group>"; };
-		078EA492155141F30044156F /* MTStatusBarOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTStatusBarOverlay.h; path = ../../../../MTStatusBarOverlay/MTStatusBarOverlay.h; sourceTree = "<group>"; };
-		078EA493155141F30044156F /* MTStatusBarOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTStatusBarOverlay.m; path = ../../../../MTStatusBarOverlay/MTStatusBarOverlay.m; sourceTree = "<group>"; };
 		07905D1815371B8F009BD70F /* IBXNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IBXNavigationBar.h; path = ApplicationBar/IBXNavigationBar.h; sourceTree = "<group>"; };
 		07905D1915371B8F009BD70F /* IBXNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IBXNavigationBar.m; path = ApplicationBar/IBXNavigationBar.m; sourceTree = "<group>"; };
 		07A167E41537D3A1002E53F6 /* IBXBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IBXBarButton.h; path = ApplicationBar/IBXBarButton.h; sourceTree = "<group>"; };
@@ -158,8 +155,6 @@
 		0799350E155125C8007AFCF2 /* IBXStatusBarOverlay */ = {
 			isa = PBXGroup;
 			children = (
-				078EA492155141F30044156F /* MTStatusBarOverlay.h */,
-				078EA493155141F30044156F /* MTStatusBarOverlay.m */,
 				078EA48F155141720044156F /* IBXStatusBarOverlay.h */,
 				078EA490155141720044156F /* IBXStatusBarOverlay.m */,
 			);
@@ -238,7 +233,6 @@
 				07A167E61537D3A1002E53F6 /* IBXBarButton.m in Sources */,
 				0750A226153CE9C400AD1CCF /* IBXToast.m in Sources */,
 				078EA491155141720044156F /* IBXStatusBarOverlay.m in Sources */,
-				078EA494155141F30044156F /* MTStatusBarOverlay.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

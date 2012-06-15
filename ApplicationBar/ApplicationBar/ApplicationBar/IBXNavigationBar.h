@@ -29,5 +29,7 @@ typedef enum
 
 - (void)setButton:(NSString *)title 
        buttonType:(NavigationBarButtonType)type;
+- (void)setButtonIcon:(UIImage *)image
+           buttonType:(NavigationBarButtonType)type;
 
 @end
