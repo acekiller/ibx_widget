@@ -68,6 +68,11 @@
                                                                                                       action:@selector(longReceived:)];
         [self addGestureRecognizer:longRecognizer];
         [longRecognizer release];
+        
+//        UITapGestureRecognizer * tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapReceived:)];
+//        [tapRecognizer setNumberOfTapsRequired:2];
+//        [self addGestureRecognizer:tapRecognizer];
+//        [tapRecognizer release];
     }
     return self;
 }
@@ -93,6 +98,11 @@
         [_delegate longPress:recognizer cell:self];
     }
 }
+
+//- (void)tapReceived:(UITapGestureRecognizer *)recoginzer
+//{
+//    NSLog(@"tap tap tap");
+//}
 
 #pragma mark - resize
 
@@ -140,7 +150,14 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (self.frame.origin.x == 0) [self toggleView];
+    [super touchesEnded:touches withEvent:event];
+    
+    if (self.frame.origin.x == 0) {
+        UITouch * touch = [touches anyObject];
+        if ([touch tapCount] == 1) {
+            [self performSelector:@selector(toggleView) withObject:nil afterDelay:0.2];
+        }
+    }
     else {
         [self slideEnd];
         
@@ -164,12 +181,25 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    [super touchesBegan:touches withEvent:event];
+    
     UITouch * touch = [touches anyObject];
     _startPoint = [touch locationInView:self.superview];    
+    
+    if ([touch tapCount] == 2) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self 
+                                                 selector:@selector(toggleView) 
+                                                   object:nil];
+        if (_delegate && [_delegate respondsToSelector:@selector(doubleClicked:)]) {
+            [_delegate doubleClicked:self];
+        }
+    }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    [super touchesMoved:touches withEvent:event];
+    
     UITouch * touch = [touches anyObject];
     CGPoint current = [touch locationInView:self.superview];    
     

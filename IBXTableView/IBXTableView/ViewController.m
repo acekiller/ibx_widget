@@ -52,6 +52,11 @@
     
 }
 
+- (void)cellDoubleClicked:(NSUInteger)index
+{
+    NSLog(@"double clicked");
+}
+
 - (void)cellMovedFrom:(NSUInteger)source index:(NSUInteger)to
 {
     

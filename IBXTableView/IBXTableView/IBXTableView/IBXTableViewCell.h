@@ -13,7 +13,6 @@
 @protocol IBXTableViewCellDelegate <NSObject>
 
 @required
-
 - (void)toggled:(IBXTableViewCell *)cell;
 - (void)buttonClicked:(NSUInteger)tag cell:(IBXTableViewCell *)cell;
 - (void)swipeDetected:(UISwipeGestureRecognizerDirection) direction
@@ -22,6 +21,9 @@
              cell:(IBXTableViewCell *)cell;
 - (void)slideStart:(IBXTableViewCell *)cell;
 - (void)slideEnd:(IBXTableViewCell *)cell;
+
+@optional
+- (void)doubleClicked:(IBXTableViewCell *)cell;
 
 @end
 

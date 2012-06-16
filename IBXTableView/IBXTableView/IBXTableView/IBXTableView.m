@@ -248,6 +248,15 @@
     }
 }
 
+- (void)doubleClicked:(IBXTableViewCell *)cell
+{
+    NSUInteger index = [_cells indexOfObject:cell];
+    if (index != NSNotFound && _ibxDelegate 
+        && [_ibxDelegate respondsToSelector:@selector(cellDoubleClicked:)]) {
+        [_ibxDelegate cellDoubleClicked:index];
+    }    
+}
+
 #pragma mark - data
 
 - (void)itemInserted:(NSUInteger)index 

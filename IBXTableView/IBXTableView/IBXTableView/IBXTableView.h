@@ -18,6 +18,9 @@
 - (void)cellButtonClicked:(NSUInteger)tag index:(NSUInteger)index;
 - (void)cellMovedFrom:(NSUInteger)source index:(NSUInteger)to;
 
+@optional 
+- (void)cellDoubleClicked:(NSUInteger)index;
+
 @optional
 - (void)blankButtonClicked;
 
