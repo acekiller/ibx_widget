@@ -46,6 +46,7 @@
 {
     cell.textLabel.text = self.title;
     cell.detailTextLabel.text = [self.detail length] > 0 ? self.detail : @"";
+    cell.accessoryView = nil;
     cell.accessoryType = self.accessoryType;
 }
 
