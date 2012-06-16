@@ -207,12 +207,13 @@
     frame.origin.x = current.x - _startPoint.x;
     self.frame = frame;
     
-    _rightIndicator.hidden = (frame.origin.x <= 0);
-    _leftIndicator.hidden = (frame.origin.x >= 0);
+    int visiblePadding = 5;
+    _rightIndicator.hidden = (frame.origin.x <= visiblePadding);
+    _leftIndicator.hidden = (frame.origin.x >= -visiblePadding);
     if (frame.origin.x != 0) {
         [self slide:frame.origin.x];
         
-        if (frame.origin.x > 0) {
+        if (frame.origin.x > visiblePadding) {
             if (_rightIndicator != nil && _rightIndicator.superview != self) {
                 [self addSubview:_rightIndicator];
                 [self sendSubviewToBack:_rightIndicator];
@@ -224,7 +225,7 @@
             _rightIndicator.alpha = [self confirmDelete] ? 1 : 0.3;
         }
         
-        if (frame.origin.x < 0) {
+        if (frame.origin.x < -visiblePadding) {
             if (_leftIndicator != nil && _leftIndicator.superview != self) {
                 [self addSubview:_leftIndicator];
                 [self sendSubviewToBack:_leftIndicator];
