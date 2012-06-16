@@ -17,6 +17,8 @@
 - (void)swipeToDelete:(NSUInteger)index;
 - (void)cellButtonClicked:(NSUInteger)tag index:(NSUInteger)index;
 - (void)cellMovedFrom:(NSUInteger)source index:(NSUInteger)to;
+
+@optional
 - (void)blankButtonClicked;
 
 @end
