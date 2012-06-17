@@ -11,6 +11,11 @@
 #import "IBXTableViewDataSource.h"
 #import "IBXTableViewCell.h"
 
+typedef enum {
+    AnimationTypeNormal,
+    AnimationTypeHide,
+} RemoveAnimationType;
+
 @protocol IBXTableViewDelegate <NSObject>
 
 @required
@@ -33,5 +38,7 @@
 
 - (void)updateUI;
 - (void)layoutFrame;
+
+- (void)removeAnimation:(RemoveAnimationType)type withIndex:(NSInteger)index;
 
 @end

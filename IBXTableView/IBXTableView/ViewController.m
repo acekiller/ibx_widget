@@ -49,7 +49,10 @@
 
 - (void)cellButtonClicked:(NSUInteger)tag index:(NSUInteger)index
 {
-    
+    if (tag == TAG_FOR_RIGHT_BUTTON) {
+        [_tableView removeAnimation:AnimationTypeHide withIndex:index];
+        [_tableViewDataSource removeItemAtIndex:index withUpdate:NO];
+    }
 }
 
 - (void)cellDoubleClicked:(NSUInteger)index

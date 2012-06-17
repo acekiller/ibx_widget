@@ -282,19 +282,7 @@
 - (void)itemWillDeleted:(NSUInteger)index
              dataSource:(IBXTableViewDataSource *)dataSource
 {
-    IBXTableViewDataItem * item = [dataSource itemAtIndex:index];
-    IBXTableViewCell * cell = [item tableViewCell];
-    [UIView animateWithDuration:0.2 animations:^(void) {
-        CGRect frame = cell.frame;
-        frame.origin.x += cell.frame.size.width;
-        cell.frame = frame;
-    } completion:^(BOOL finished) {
-        [cell removeFromSuperview];
-        [UIView animateWithDuration:0.2 animations:^(void) {
-            [_cells removeObject:cell];
-            [self layoutFrame];
-        }];
-    }];
+    [self removeAnimation:AnimationTypeNormal withIndex:index];
 }
 
 - (void)itemUpdated:(NSUInteger)index 
@@ -306,7 +294,6 @@
         [self layoutFrame];
     } completion:^(BOOL finished) {
     }];
-    
 }
 
 - (void)dataChanged:(IBXTableViewDataSource *)dataSource
@@ -332,6 +319,31 @@
     _ibxDataSource = ibxDataSource;
     ibxDataSource.delegate = self;
 }
+     
+#pragma mark - remove animation
 
+- (void)removeAnimation:(RemoveAnimationType)type withIndex:(NSInteger)index
+{
+    IBXTableViewDataItem * item = [_ibxDataSource itemAtIndex:index];
+    IBXTableViewCell * cell = [item tableViewCell];
+    
+    [UIView animateWithDuration:0.2 animations:^(void) {
+        CGRect frame = cell.frame;
+        if (type == AnimationTypeNormal) {
+            frame.origin.x += cell.frame.size.width;
+        }
+        else if (type == AnimationTypeHide) {
+            frame.size.height = 0;
+        }
+        cell.frame = frame;
+        
+    } completion:^(BOOL finished) {
+        [cell removeFromSuperview];
+        [UIView animateWithDuration:0.2 animations:^(void) {
+            [_cells removeObject:cell];
+            [self layoutFrame];
+        }];
+    }];
+}
 
 @end
