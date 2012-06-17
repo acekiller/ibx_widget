@@ -45,6 +45,7 @@
     
     [_cell addButton:[UIImage imageNamed:@"icon_edit.png"] title:@"edit" tag:100];
     [_cell addButton:nil title:@"share" tag:101];
+    [_cell addRightButton:[UIImage imageNamed:@"icon_trash.png"] title:nil];
     
     [_cell layoutSubviews];    
 }

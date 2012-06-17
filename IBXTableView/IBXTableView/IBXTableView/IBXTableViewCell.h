@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define TAG_FOR_RIGHT_BUTTON 3323440234
+
 @class IBXTableViewCell;
 
 @protocol IBXTableViewCellDelegate <NSObject>
@@ -42,10 +44,14 @@
 
 - (void)toggleView;
 - (void)resizeWithToggle;
+
 - (void)addButton:(UIImage *)icon 
             title:(NSString *)title
               tag:(NSUInteger)tag;
+- (void)addRightButton:(UIImage *)icon
+                 title:(NSString *)title;
 - (void)clearButtons;
+
 - (void)setFocus:(BOOL)focus;
 - (void)slide:(CGFloat)delta;
 

@@ -69,10 +69,6 @@
         [self addGestureRecognizer:longRecognizer];
         [longRecognizer release];
         
-//        UITapGestureRecognizer * tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapReceived:)];
-//        [tapRecognizer setNumberOfTapsRequired:2];
-//        [self addGestureRecognizer:tapRecognizer];
-//        [tapRecognizer release];
     }
     return self;
 }
@@ -99,16 +95,11 @@
     }
 }
 
-//- (void)tapReceived:(UITapGestureRecognizer *)recoginzer
-//{
-//    NSLog(@"tap tap tap");
-//}
-
 #pragma mark - resize
 
 - (BOOL)confirmDelete
 {
-    return self.frame.origin.x > self.frame.size.width / 3.;
+    return self.frame.origin.x > self.frame.size.width / 4.;
 }
 
 - (void)resizeWithToggle
@@ -250,17 +241,8 @@
     }
 }
 
-- (void)addButton:(UIImage *)icon
-            title:(NSString *)title 
-              tag:(NSUInteger)tag
+- (UIButton *)buttonWithImage:(UIImage *)icon orTitile:(NSString *)title withX:(CGFloat)x
 {
-    CGFloat x = 0;
-    for (UIView * view in _buttonView.subviews) {
-        if (![view isKindOfClass:[UIButton class]]) continue;
-            
-        if (CGRectGetMaxX(view.frame) > x) x = CGRectGetMaxX(view.frame);
-    }
-    
     UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
     if (icon != nil) {
         [button setImage:icon forState:UIControlStateNormal];
@@ -279,9 +261,35 @@
                action:@selector(optionButtonClicked:)
      forControlEvents:UIControlEventTouchUpInside];
     button.showsTouchWhenHighlighted = YES;
+    
+    return button;
+}
+
+- (void)addButton:(UIImage *)icon
+            title:(NSString *)title 
+              tag:(NSUInteger)tag
+{
+    CGFloat x = 0;
+    for (UIView * view in _buttonView.subviews) {
+        if (![view isKindOfClass:[UIButton class]]) continue;
+        if (view.tag == TAG_FOR_RIGHT_BUTTON) continue;
+            
+        if (CGRectGetMaxX(view.frame) > x) x = CGRectGetMaxX(view.frame);
+    }
+    
+    UIButton * button = [self buttonWithImage:icon orTitile:title withX:x];
     button.tag = tag;
     [_buttonView addSubview:button];
     _buttonView.contentSize = CGSizeMake(CGRectGetMaxX(button.frame) + button.frame.size.width, DEFAULT_CELL_HEIGHT);
+}
+
+- (void)addRightButton:(UIImage *)icon 
+                  title:(NSString *)title 
+{
+    UIButton * button = [self buttonWithImage:icon orTitile:title withX:0];
+    button.frame = CGRectMake(_buttonView.frame.size.width - button.frame.size.width, button.frame.origin.y, button.frame.size.width, button.frame.size.height);    
+    button.tag = TAG_FOR_RIGHT_BUTTON;
+    [_buttonView addSubview:button];
 }
 
 - (void)clearButtons
