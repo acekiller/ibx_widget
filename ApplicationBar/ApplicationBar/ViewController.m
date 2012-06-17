@@ -13,6 +13,7 @@
 #define TAG_FOR_CREATE_BUTTON   100080
 #define TAG_FOR_FEEDBACK_BUTTON 100081
 #define TAG_FOR_PLUS_BUTTON     100082
+#define TAG_FOR_MESSAGE_BUTTON  100083
 
 @interface ViewController ()
 {
@@ -31,9 +32,13 @@
 {
     if (buttonTag == TAG_FOR_CREATE_BUTTON) {
         NSLog(@"create button clicked");
+        [applicationBar showMessage:@"hello" withIcon:[UIImage imageNamed:@"icon-plus.png"] withTag:TAG_FOR_MESSAGE_BUTTON];
     }
     else if (buttonTag == TAG_FOR_FEEDBACK_BUTTON) {
         NSLog(@"feedback button clicked");
+    }
+    else if (buttonTag == TAG_FOR_MESSAGE_BUTTON) {
+        NSLog(@"message clicked");
     }
 }
 

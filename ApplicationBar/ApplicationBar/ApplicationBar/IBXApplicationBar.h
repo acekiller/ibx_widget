@@ -15,6 +15,8 @@
 #define IBX_APPLICATION_BAR_BUTTON_HEIGHT    44
 #define IBX_APPLICATION_DISPLAY_BUTTON_WIDTH 40
 
+#define IBX_EMPTY_TAG -1
+
 @class IBXApplicationBar;
 
 @protocol IBXApplicationBarDelegate <NSObject>
@@ -32,5 +34,6 @@
 - (void)addDisplayButton:(UIImage *)icon withTitle:(NSString *)title withTag:(NSInteger)tag;
 - (void)addOptionButton:(NSString *)title withTag:(NSInteger)tag;
 - (void)addOptionButton:(NSString *)title withIcon:(UIImage *)image withTag:(NSInteger)tag;
+- (void)showMessage:(NSString *)message withIcon:(UIImage *)icon withTag:(NSInteger)tag;
 
 @end

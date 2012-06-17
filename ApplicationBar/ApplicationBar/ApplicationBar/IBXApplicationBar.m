@@ -10,6 +10,7 @@
 
 #define DEFAULT_PADDING    10
 #define HIDE_BUTTON_HEIGHT 480
+#define DEFAULT_DURATION   0.2
 
 @interface IBXApplicationBar ()
 {
@@ -20,6 +21,7 @@
     
     UIButton * _optionButton;
     UIButton * _hideButton;
+    UIButton * _messageButton;
     
     UIView * _contentView;
 }
@@ -29,6 +31,20 @@
 @implementation IBXApplicationBar
 
 @synthesize barDelegate = _barDelegate;
+
+- (void)dealloc
+{
+    _barDelegate = nil;
+    
+    [_contentView release];
+    [_displayButtons release];
+    [_optionButtons release];
+    [_optionButton release];
+    [_hideButton release];
+    [_messageButton release];
+    
+    [super dealloc];
+}
 
 - (id)init
 {
@@ -65,6 +81,12 @@
         gestureRecognizer.direction = UISwipeGestureRecognizerDirectionDown;
         [self addGestureRecognizer:gestureRecognizer];
         [gestureRecognizer release];
+        
+        gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeDetected:)];
+        gestureRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
+        [self addGestureRecognizer:gestureRecognizer];
+        [gestureRecognizer release];
+        
         self.userInteractionEnabled = YES;
     }
     
@@ -76,6 +98,9 @@
 - (void)swipeDetected:(UISwipeGestureRecognizer *)recoginzer
 {
     if (recoginzer.direction == UISwipeGestureRecognizerDirectionDown && ![self minState]) {
+        [self toggleView];
+    }
+    else if (recoginzer.direction == UISwipeGestureRecognizerDirectionUp && [self minState]) {
         [self toggleView];
     }
 }
@@ -100,7 +125,7 @@
 - (void)toggleView
 {    
         
-    [UIView animateWithDuration:0.2 animations:^(void) {
+    [UIView animateWithDuration:DEFAULT_DURATION animations:^(void) {
         if ([self minState]) {
             CGRect frame = self.frame;
             frame.size.height = IBX_APPLICATION_BAR_DEFAULT_HEIGHT + [self heightForOptionButtons] + HIDE_BUTTON_HEIGHT;
@@ -157,7 +182,54 @@
     [self toggleView];
 }
 
-#pragma - public
+#pragma mark - message button
+
+- (void)hideMessageButton
+{
+    [UIView animateWithDuration:DEFAULT_DURATION animations:^{
+        _messageButton.frame = CGRectMake(DEFAULT_DURATION, IBX_APPLICATION_BAR_DEFAULT_HEIGHT, _messageButton.frame.size.width, _messageButton.frame.size.height) ;
+        _messageButton.alpha = 0;
+    }];
+}
+
+- (void)messageButtonClicked
+{
+    [self responseButtonTag:_messageButton];
+}
+
+#pragma mark - public
+
+- (void)showMessage:(NSString *)message withIcon:(UIImage *)icon withTag:(NSInteger)tag
+{
+    if (_messageButton == nil) {
+        _messageButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        [_contentView addSubview:_messageButton];
+    }
+    
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideMessageButton) object:nil];
+    
+    _messageButton.alpha = 0;
+    [_messageButton setTitle:message forState:UIControlStateNormal];
+    [_messageButton setImage:icon forState:UIControlStateNormal];
+    [_messageButton sizeToFit];
+    [_messageButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_messageButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+
+    if (icon != nil) { 
+        [_messageButton setTitleEdgeInsets:UIEdgeInsetsMake(0, DEFAULT_PADDING, 0, 0)];
+        _messageButton.frame = CGRectMake(_messageButton.frame.origin.x, _messageButton.frame.origin.y, _messageButton.frame.size.width + DEFAULT_PADDING, _messageButton.frame.size.height);
+    }
+    _messageButton.tag = tag;
+    _messageButton.frame = CGRectMake(DEFAULT_PADDING, IBX_APPLICATION_BAR_DEFAULT_HEIGHT, _messageButton.frame.size.width, IBX_APPLICATION_BAR_DEFAULT_HEIGHT);
+    [_messageButton addTarget:self action:@selector(messageButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [UIView animateWithDuration:DEFAULT_DURATION animations:^{
+        _messageButton.alpha = 1;
+        _messageButton.frame = CGRectMake(DEFAULT_PADDING, 0, _messageButton.frame.size.width, _messageButton.frame.size.height);
+    }];
+    
+    [self performSelector:@selector(hideMessageButton) withObject:nil afterDelay:3];
+    
+}
 
 - (void)addDisplayButton:(UIImage *)icon 
                withTitle:(NSString *)title
@@ -246,19 +318,6 @@
     frame.size.height = IBX_APPLICATION_BAR_DEFAULT_HEIGHT;
     _contentView.frame = frame;
     self.frame = _contentView.frame;
-}
-
-- (void)dealloc
-{
-    _barDelegate = nil;
-    
-    [_contentView release];
-    [_displayButtons release];
-    [_optionButtons release];
-    [_optionButton release];
-    [_hideButton release];
-    
-    [super dealloc];
 }
 
 @end
